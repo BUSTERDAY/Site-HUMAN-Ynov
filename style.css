@@ -9,7 +9,6 @@ body{
     font-family: 'Times New Roman';
     margin: 0;
     padding: 0;
-    
 }
 
 h1{
@@ -45,6 +44,17 @@ a:link{
 }
 a:visited{
     color: black;
+}
+
+.page_accueil{
+    background-color: black;
+}
+#texte_accueil{
+    color: white;
+    font-family: 'Times New Roman';
+}
+#lien_accueil{
+    color: rgb(38, 0, 255);
 }
 
 .menu {
