@@ -8,9 +8,6 @@ const publicDir = path.join(__dirname, 'public');
 
 const requestListener = function (req, res) {
     const filePath = path.join(publicDir, req.url === '/' ? 'views/index.html' : req.url.replace(/^\/views\//, '/'));
-    
-    console.log('Requested path:', req.url);
-    console.log('Resolved path:', filePath);
 
     fs.readFile(filePath)
         .then(contents => {
