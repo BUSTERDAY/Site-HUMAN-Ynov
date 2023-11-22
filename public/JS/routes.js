@@ -12,6 +12,10 @@ const evenement = JSON.stringify([
 const requestListener = function (req, res) {
     res.setHeader("Content-Type", "application/json");
     switch (req.url) {
+         case "/":
+            res.writeHead(200);
+            res.end(indexFile);
+            break;
         case "/evenement":
             res.writeHead(200);
             res.end(evenement);
