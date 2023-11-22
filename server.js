@@ -7,7 +7,7 @@ const port = 8080;
 const publicDir = path.join(__dirname, 'public');
 
 const requestListener = function (req, res) {
-    const filePath = path.join(publicDir, req.url === '/' ? 'views/index.html' : req.url.replace(/^\/views\//, '/'));
+    const filePath = path.join(publicDir, req.url === '/' ? 'views/index.html' : req.url.endsWith('.html') ? '/views/' + path.basename(req.url) : req.url.replace(/^\/views\//, '/'));
 
     fs.readFile(filePath)
         .then(contents => {
@@ -17,9 +17,12 @@ const requestListener = function (req, res) {
         })
         .catch(err => {
             console.error(err);
+            console.log('Requested URL:', req.url);
+            console.log('Resolved File Path:', filePath);
             res.writeHead(404);
             res.end(`File not found: ${req.url}`);
         });
+        
 };
 
 
