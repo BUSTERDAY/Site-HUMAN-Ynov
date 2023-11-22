@@ -7,10 +7,11 @@ const port = 8080;
 const publicDir = path.join(__dirname, 'public');
 
 const requestListener = function (req, res) {
-    // Obtenir le chemin complet du fichier demandé
-    const filePath = path.join(publicDir, req.url === '/' ? 'views/index.html' : req.url);
+    const filePath = path.join(publicDir, req.url === '/' ? 'views/index.html' : req.url.replace(/^\/views\//, '/'));
+    
+    console.log('Requested path:', req.url);
+    console.log('Resolved path:', filePath);
 
-    // Vérifiez si le fichier demandé existe
     fs.readFile(filePath)
         .then(contents => {
             res.setHeader("Content-Type", getContentType(filePath));
@@ -18,10 +19,12 @@ const requestListener = function (req, res) {
             res.end(contents);
         })
         .catch(err => {
+            console.error(err);
             res.writeHead(404);
             res.end(`File not found: ${req.url}`);
         });
 };
+
 
 const server = http.createServer(requestListener);
 
